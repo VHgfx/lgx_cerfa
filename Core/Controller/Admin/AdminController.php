@@ -26,7 +26,7 @@ class AdminController extends Controller {
                 if($this->response){
                     App::url('error');
                  }else{
-                     $this->user = $user;
+                    $this->user = $user;
                  }
             }else{
                 $this->session->delete('dbauth');
