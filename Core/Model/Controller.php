@@ -8,7 +8,6 @@ class Controller {
     protected $viewPath;
     protected $template;
     protected $session;
-
     protected $response  = false;
     public $error = "Soucis lors de l'execution de la requête, recharger et réessayer";
     public $empty = "Veuillez remplir correctement tous les champs requis";
