@@ -56,6 +56,7 @@ class HomeController extends AdminController{
         $nbreformations = Formation::countBySearchType();
         $nbreemployeurs = Entreprise::countBySearchType();
         $nbrecerfas = Cerfa::countBySearchType();
+        
         $_SESSION['page_active'] = 'home';
         $current = date(DATE_FORMAT);
         $this->render('admin.user.index',compact('user','current','nbreadmins','nbrealternants','nbrecerfas','nbreemployeurs','nbreformations'));
