@@ -8,6 +8,8 @@ class Controller {
     protected $viewPath;
     protected $template;
     protected $session;
+
+    protected $response  = false;
     public $error = "Soucis lors de l'execution de la requête, recharger et réessayer";
     public $empty = "Veuillez remplir correctement tous les champs requis";
     public $end_mail = "<br><i>Nous vous remercions de votre confiance</i><br><br><b>Toute l'équipe LGX</b>";
