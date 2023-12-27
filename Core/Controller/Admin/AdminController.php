@@ -23,7 +23,11 @@ class AdminController extends Controller {
         if($auth->isLogged()){
             $user = Profil::find($auth->user());
             if($user->etat==1){
-                $this->user = $user;
+                if($this->response){
+                    App::url('error');
+                 }else{
+                    $this->user = $user;
+                 }
             }else{
                 $this->session->delete('dbauth');
                 $this->session->write('lastUrlAsked',App::url(Router::getRoute()));
