@@ -26,7 +26,9 @@ App::addScript('assets/js/bureau.js',true);
         <div class="panel panel-dark">
             <div class="panel-heading">
                 <h5 class="panel-title">
+
                 Bureaux Test <small>(<?= thousand($nbre->Total); ?>)</small>
+
                 </h5>
                 <div class="panel-control">
                     <?php if(Privilege::canView(Privilege::$AllView,$user->privilege)){ ?>
