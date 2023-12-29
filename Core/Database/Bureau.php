@@ -1,4 +1,21 @@
 <?php
+/*
+Création bdd Bureau : 
+
+CREATE TABLE `bureau` (
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`nom` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`type` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`couleur` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=4
+;
+
+
+*/
 
 namespace Projet\Database;
 

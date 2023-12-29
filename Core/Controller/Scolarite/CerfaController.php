@@ -5,6 +5,8 @@ namespace Projet\Controller\Scolarite;
 
 
 
+use DOMDocument;
+use DOMXPath;
 use Projet\Controller\Admin\AdminsController;
 
 use Projet\Database\Cerfa;
@@ -37,6 +39,29 @@ class CerfaController extends AdminsController
         $employeurs = Entreprise::searchType();
         $formations = Formation::searchType();
         $this->render('admin.scolarite.cerfa',compact('search','user','nbre','nbrePages','items','employeurs','formations'));
+    }
+
+    public  function smic()
+    {
+        $url = 'https://entreprendre.service-public.fr/vosdroits/F2300';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        // if (curl_errno($ch)) {
+        //     echo 'Erreur cURL : ' . curl_error($ch);
+        //     exit;
+        // }
+        curl_close($ch);
+        $dom = new DOMDocument ;
+        @$dom->loadHTML($response);
+        $xpath = new DOMXPath($dom);
+        $smicMensuelBrut = $xpath->query('//tr[th="Smic mensuel"]/td[1]/p/span[@class="sp-prix"]');
+        if ($smicMensuelBrut->length > 0) {
+            $montantBrutMensuel = $smicMensuelBrut->item(0)->textContent;
+            return preg_replace('/[^\d,]/', '', $montantBrutMensuel);
+        } else {
+            return  1747.20;
+        }
     }
 
 
@@ -164,8 +189,13 @@ class CerfaController extends AdminsController
                     }
 
                     if(!empty($naissanceA) && empty($salaireC)){
+                        $smic = $this->smic();
+                        $smic = str_replace(',', '.', $smic);
+
+
+                        
+
                         $dateAujourdhui = date("Y-m-d");
-                        $smic = 1747.20;
 
                         $dateNaissanceObj = date_create($naissanceA);
                         $dateAujourdhuiObj = date_create($dateAujourdhui);
@@ -178,30 +208,46 @@ class CerfaController extends AdminsController
                             if(  $dateAujourdhui >= $rdC && $dateAujourdhui <= $raC){
                                 $salaireC = 0.27 * $smic;
                                 $rpC =27;
+                                $rpC1 ='';
+                                $rpC2 ='';
                             }elseif($dateAujourdhui >= $rdC1 && $dateAujourdhui <= $raC1 ){
                                 $salaireC = 0.39 * $smic;
                                 $rpC1 =39;
+                                $rpC ='';
+                                $rpC2 ='';
                             }elseif( $dateAujourdhui >= $rdC2 && $dateAujourdhui <= $raC2){
                                 $salaireC = 0.55 * $smic;
                                 $rpC2 =55;
+                                $rpC1 ='';
+                                $rpC ='';
                             }else{
                                 $salaireC = 0.27 * $smic;
                                 $rpC =27;
+                                $rpC1 ='';
+                                $rpC2 ='';
                             }
                          
                         } elseif ($age >= 18 && $age <= 20) {
                             if(  $dateAujourdhui >= $rdC && $dateAujourdhui <= $raC){
                                 $salaireC = 0.43 * $smic;
                                 $rpC =43;
+                                $rpC1 ='';
+                                $rpC2 ='';
                             }elseif($dateAujourdhui >= $rdC1 && $dateAujourdhui <= $raC1 ){
                                 $salaireC = 0.51 * $smic;
                                 $rpC1 =51;
+                                $rpC ='';
+                                $rpC2 ='';
                             }elseif( $dateAujourdhui >= $rdC2 && $dateAujourdhui <= $raC2){
                                 $salaireC = 0.67 * $smic;
                                 $rpC2 =67;
+                                $rpC1 ='';
+                                $rpC ='';
                             }else{
                                 $salaireC = 0.43 * $smic;
                                 $rpC =43;
+                                $rpC1 ='';
+                                $rpC2 ='';
                             }   
                          
                             
@@ -210,15 +256,23 @@ class CerfaController extends AdminsController
                             if( $dateAujourdhui >= $rdC && $dateAujourdhui <= $raC){
                                 $salaireC = 0.53 * $smic;
                                 $rpC =53;
+                                $rpC1 ='';
+                                $rpC2 ='';
                             }elseif($dateAujourdhui >= $rdC1 && $dateAujourdhui <= $raC1 ){
                                 $salaireC = 0.61 * $smic;
                                 $rpC1 =61;
+                                $rpC ='';
+                                $rpC2 ='';
                             }elseif( $dateAujourdhui >= $rdC2 && $dateAujourdhui <= $raC2 ){
                                 $salaireC = 0.78 * $smic;
                                 $rpC2 =78;
+                                $rpC1 ='';
+                                $rpC ='';
                             }else{
                                 $rpC =53;
                                 $salaireC = 0.53 * $smic;
+                                $rpC1 ='';
+                                $rpC2 ='';
                             }
                            
                         } else {

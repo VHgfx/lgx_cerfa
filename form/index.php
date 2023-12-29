@@ -1,11 +1,5 @@
 <?php
 
-
-
-
-
-
-
 use Core\Router;
 
 use Model\UserAdmin;
@@ -17,20 +11,7 @@ use Model\UserAdmin;
  $decodedData = json_decode(base64_decode(urldecode($encodedData)), true);
 
  setcookie("info", $decodedData);
-
-    
-
   
-
-    
-
-
-
-
-
-
-
-    
 
 require_once 'config/DbAuth.php';
 
@@ -39,8 +20,6 @@ require 'autoload.php';
 require_once "Core/Router.php";
 
 require_once "Model/Form.php";
-
-
 
 
 

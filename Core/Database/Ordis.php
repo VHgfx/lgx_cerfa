@@ -1,4 +1,14 @@
 <?php
+/*
+Créer la bdd : 
+
+CREATE TABLE ordis (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    type VARCHAR(255) NOT NULL
+);
+
+*/
 
 namespace Projet\Database;
 
