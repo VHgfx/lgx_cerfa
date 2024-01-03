@@ -473,4 +473,34 @@ public function savenew()
         echo json_encode($return);
     }
 
+    public function sendEmployeur(){
+        Privilege::hasPrivilege(Privilege::$AllView,$this->user->privilege);
+        header('content-type: application/json');
+        if (isset($_POST['id'])&&!empty($_POST['id'])){
+            $id = $_POST['id'];
+            $cerfa = Cerfa::find($id);
+            $ligneemployeur = Entreprise :: find($cerfa->idemployeur);
+            if ( $ligneemployeur){
+                if(!empty($ligneemployeur->emailE)){
+                    Email::sendEmailEmployer( $ligneemployeur->emailE, $id);
+                    $message = "Le cerfa a été envoyer  avec succès à l'employeur";
+                    $this->session->write('success',$message);
+                    $return = array("statuts"=>0, "mes"=>$message);
+                }else{
+                    $message = "Renseigner l'email de l'employeur";
+                    $return = array("statuts"=>1, "mes"=>$message);
+                }
+                
+             
+            }else{
+                $message = "L'employeur n'existe pas";
+                $return = array("statuts"=>1, "mes"=>$message);
+            }
+        }else{
+            $message = "Renseigner l'id SVP !!!";
+            $return = array("statuts"=>1, "mes"=>$message);
+        }
+        echo json_encode($return);
+    }
+
 }

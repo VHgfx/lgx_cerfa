@@ -48,6 +48,7 @@ return
         "cerfas/savenew"=>'\Projet\Controller\Scolarite\CerfaController#savenew',
         "cerfas/delete"=>'\Projet\Controller\Scolarite\CerfaController#delete',
         "cerfas/send"=>'\Projet\Controller\Scolarite\CerfaController#send',
+        "cerfas/sendEmployeur"=>'\Projet\Controller\Scolarite\CerfaController#sendEmployeur',
         "cerfas/pdf"=>'\Projet\Controller\Admin\StatsController#cerfas',
        
         "ordis"=>'\Projet\Controller\Scolarite\OrdisController#index',

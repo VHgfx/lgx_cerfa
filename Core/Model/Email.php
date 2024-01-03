@@ -242,5 +242,65 @@ class Email {
             
                 
     }
+
+    public static function sendEmailEmployer($emailDestinateur, $data) {
+        $encodedData = base64_encode(json_encode($data));
+        $link = 'https://lgx-solution.fr/cerfa/formEmployeur/index.php?data=' . urlencode($encodedData);
+        $mail = new PHPMailer(true);
+
+           
+              
+                $mail->SMTPDebug = SMTP::DEBUG_SERVER;                    
+                $mail->isSMTP();                                         
+                $mail->Host       = 'smtp.hostinger.com';                     
+                $mail->SMTPAuth   = true;                                
+                $mail->Username   = 'contact@lgx-solution.fr';                  
+                $mail->Password   = 'R5yhyv62!EgRw0!';                              
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         
+                $mail->Port       = 465;    
+                
+           
+
+             
+                $mail->setFrom('contact@lgx-solution.fr', 'Scolarite LGX ');
+                //$mail->addAddress($emailDestinateur, 'Joe User');   
+                $mail->addAddress($emailDestinateur);              
+                $mail->addReplyTo('contact@lgx-solution.fr', 'Scolarite LGX');
+                $mail->addCC('contact@lgx-solution.fr');
+                $mail->addBCC('contact@lgx-solution.fr');
+
+                $message = "<html>
+                    <body>
+                  
+
+                    Bonjour,<br/>
+
+                    Nous vous invitons à compléter ce formulaire en fournissant vos informations <br>
+                    pour l'établissement de votre apprenti(e).<br>
+   
+                    Lien sécurisé : $link <br>
+                    
+                   
+
+                    Cordialement l'equipe LGX.
+                    </p>
+                    <body/>
+                    <html/>";
+
+            
+
+              
+                $mail->isHTML(true);                                 
+                $mail->Subject = 'Information Apprenti(e) / Maître de stage';
+                $mail->Body    = $message;
+                //$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+                
+               
+               
+                return  $mail->send();
+            
+                
+    }
 }
 
