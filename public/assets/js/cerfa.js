@@ -661,4 +661,48 @@ $(document).ready(function(){
             });
     });
 
+    
+    $(document).on('click','.sendEmployeur', function (e) {
+        e.preventDefault();
+        var url = $(this).data('url'),
+            id = $(this).data('id');
+        swal({
+                title: "Etes vous sûr?",
+                text: "Le cerfa va être envoyer a l'employeur.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#153C4A",
+                confirmButtonText: "Oui, valider!",
+                cancelButtonText: "Annuler",
+                closeOnConfirm: true
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    $.ajax({
+                        type: 'post',
+                        url : url,
+                        data: 'id='+id,
+                        datatype: 'json',
+                        beforeSend: function () {
+                            run_waitMe(current_effect,loadingText);
+
+                        },
+                        complete: function () {
+                            dismiss_waitMe();
+                            window.location.reload();
+                        },
+                        success: function (json) {
+                            if (json.statuts === 0) {
+                                toastr.success(json.mes,'Succès!');
+                                window.location.reload();
+                            } else {
+                         	       toastr.error(json.mes,'Oups!');
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){}
+                    });
+                }
+            });
+    });
+
 });
