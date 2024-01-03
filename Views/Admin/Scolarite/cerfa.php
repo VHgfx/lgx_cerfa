@@ -194,6 +194,11 @@ App::addScript('assets/js/cerfa.js',true);
                                                    data-id="<?= $item->id; ?>"><i class="fa fa-paper-plane fa-2x"></i>
                                                 </a>
 
+                                                <a href="javascript:void(0);" class="sendEmployeur"  title="Envoyer le  cerfa à l'employeur"
+                                                   data-url="<?= App::url('cerfas/sendEmployeur'); ?>"
+                                                   data-id="<?= $item->id; ?>"><i class="fa fa-share-square fa-2x"></i>
+                                                </a>
+
                                               
 
                                               
